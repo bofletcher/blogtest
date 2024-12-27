@@ -11,5 +11,5 @@ export const POST_QUERY =
 }`);
 
 export const CATEGORIES_QUERY = defineQuery(`*[_type == "category"]{
-  title, slug
+  title, order, slug
 }`);
