@@ -13,3 +13,14 @@ export const POST_QUERY =
 export const CATEGORIES_QUERY = defineQuery(`*[_type == "category"]{
   title, order, slug
 }`);
+export const POSTS_BY_CATEGORY_QUERY = defineQuery(`
+  *[_type == "post" && references(*[_type == "category" && slug.current == $slug]._id)]{
+    _id,
+    title,
+    slug,
+    mainImage,
+    author->{name},
+    publishedAt,
+    categories[]->{title, slug}
+  }
+`);

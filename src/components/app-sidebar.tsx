@@ -1,5 +1,6 @@
 import { Key } from "lucide-react";
 import { sanityFetch } from "@/sanity/lib/live";
+import { GalleryVerticalEnd } from "lucide-react";
 import { CATEGORIES_QUERY } from "@/sanity/lib/queries";
 
 import {
@@ -8,6 +9,7 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -21,6 +23,12 @@ export async function AppSidebar() {
   return (
     <Sidebar>
       <SidebarContent>
+        <SidebarHeader>
+          <div className="flex size-6 items-center justify-center rounded-sm border">
+            <GalleryVerticalEnd className="size-4 shrink-0" />
+          </div>
+          <>Application</>
+        </SidebarHeader>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
