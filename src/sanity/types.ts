@@ -343,6 +343,33 @@ export type CATEGORIES_QUERYResult = Array<{
   order: number | null;
   slug: Slug | null;
 }>;
+// Variable: POSTS_BY_CATEGORY_QUERY
+// Query: *[_type == "post" && references(*[_type == "category" && slug.current == $slug]._id)]{    _id,    title,    slug,    mainImage,    author->{name},    publishedAt,    categories[]->{title, slug}  }
+export type POSTS_BY_CATEGORY_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  slug: Slug | null;
+  mainImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  author: {
+    name: string | null;
+  } | null;
+  publishedAt: string | null;
+  categories: Array<{
+    title: string | null;
+    slug: Slug | null;
+  }> | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -351,5 +378,6 @@ declare module "@sanity/client" {
     "*[_type == \"post\" && defined(slug.current)][0...12]{\n  _id, title, slug\n}": POSTS_QUERYResult;
     "*[_type == \"post\" && slug.current == $slug][0]{\n  title, body, mainImage\n}": POST_QUERYResult;
     "*[_type == \"category\"]{\n  title, order, slug\n}": CATEGORIES_QUERYResult;
+    "\n  *[_type == \"post\" && references(*[_type == \"category\" && slug.current == $slug]._id)]{\n    _id,\n    title,\n    slug,\n    mainImage,\n    author->{name},\n    publishedAt,\n    categories[]->{title, slug}\n  }\n": POSTS_BY_CATEGORY_QUERYResult;
   }
 }
