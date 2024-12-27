@@ -9,3 +9,7 @@ export const POST_QUERY =
   defineQuery(`*[_type == "post" && slug.current == $slug][0]{
   title, body, mainImage
 }`);
+
+export const CATEGORIES_QUERY = defineQuery(`*[_type == "category"]{
+  title, slug
+}`);

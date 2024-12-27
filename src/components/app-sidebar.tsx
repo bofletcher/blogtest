@@ -1,4 +1,6 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { Key } from "lucide-react";
+import { sanityFetch } from "@/sanity/lib/live";
+import { CATEGORIES_QUERY } from "@/sanity/lib/queries";
 
 import {
   Sidebar,
@@ -11,36 +13,11 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-// Menu items.
-const items = [
-  {
-    title: "Home",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
-];
+export async function AppSidebar() {
+  const { data: categories } = await sanityFetch({ query: CATEGORIES_QUERY });
 
-export function AppSidebar() {
+  console.log(categories);
+
   return (
     <Sidebar>
       <SidebarContent>
@@ -48,11 +25,11 @@ export function AppSidebar() {
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {categories.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
+                    <a href={item.slug.current}>
+                      <Key />
                       <span>{item.title}</span>
                     </a>
                   </SidebarMenuButton>
