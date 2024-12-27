@@ -1,14 +1,16 @@
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
 import { SanityLive } from "@/sanity/lib/live";
 
-export default function FrontendLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      {children}
-      <SanityLive />
-    </>
+    <SidebarProvider>
+      <AppSidebar />
+      <main>
+        <SidebarTrigger />
+        {children}
+        <SanityLive />
+      </main>
+    </SidebarProvider>
   );
 }
